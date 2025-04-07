@@ -54,6 +54,39 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  display: none; /* Hide the table headers */
+}
+
+tbody tr {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem; /* Add spacing between rows */
+  border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+  padding: 1rem;
+  border-radius: 8px; /* Optional: Add rounded corners */
+}
+
+tbody td {
+  display: block;
+  margin-bottom: 0.5rem; /* Add spacing between items */
+}
+
+tbody td img {
+  max-width: 100%; /* Ensure the image is responsive */
+  height: auto;
+  margin-bottom: 0.5rem; /* Add spacing below the image */
+}
+
+tbody td:last-child {
+  margin-bottom: 0; /* Remove margin for the last item */
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -66,3 +99,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
