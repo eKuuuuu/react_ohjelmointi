@@ -66,25 +66,62 @@ thead {
 tbody tr {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem; /* Add spacing between rows */
-  border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
   padding: 1rem;
-  border-radius: 8px; /* Optional: Add rounded corners */
+  border-radius: 8px;
 }
 
 tbody td {
   display: block;
-  margin-bottom: 0.5rem; /* Add spacing between items */
-}
-
-tbody td img {
-  max-width: 100%; /* Ensure the image is responsive */
-  height: auto;
-  margin-bottom: 0.5rem; /* Add spacing below the image */
+  margin-bottom: 0.5rem;
 }
 
 tbody td:last-child {
-  margin-bottom: 0; /* Remove margin for the last item */
+  margin-bottom: 0;
+}
+
+tbody td button {
+  display: inline-block;
+  margin-top: 0.5rem; /* Add spacing above the button */
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+tbody td button:hover {
+  background-color: #646cff;
+  border-color: #535bf2;
+}
+
+tbody td button:focus {
+  outline: 2px solid #535bf2;
+}
+
+dialog {
+  position: fixed;
+  top: 5%;
+  height: 90%;
+  background: rgba(0, 0, 0, 1);
+  z-index: 9999;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+dialog img,
+video {
+  height: 70%;
+  object-fit: contain;
+}
+
+/* single view */
+img,
+video {
+  max-width: 100%;
 }
 
 @media (prefers-color-scheme: light) {
