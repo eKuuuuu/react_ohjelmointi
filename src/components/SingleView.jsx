@@ -3,7 +3,6 @@ import { useRef, useEffect } from 'react';
 const SingleView = ({ item, setSelectedItem }) => {
     const dialogRef = useRef(null);
 
-    // Open or close the dialog based on the item
     useEffect(() => {
         if (item) {
             openModal();
