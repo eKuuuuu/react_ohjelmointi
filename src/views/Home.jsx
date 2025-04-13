@@ -7,12 +7,28 @@ const Home = () => {
     const [mediaArray, setMediaArray] = useState([])
     const [selectedItem, setSelectedItem] = useState(null);
 
+    const getUsername = async (userId) => {
+        try {
+            const user = await fetchData(`${import.meta.env.VITE_MEDIA_API}/users/${userId}`);
+            return user.username;
+        } catch (error) {
+            console.error(`Error fetching username for userId ${userId}:`, error);
+            return 'Unknown';
+        }
+    };
+
     const getMedia = async () => {
         try {
-            const json = await fetchData('test.json');
-            setMediaArray(json);
+            const media = await fetchData(import.meta.env.VITE_MEDIA_API + '/media');
+            const mediaWithUserData = await Promise.all(
+                media.map(async (item) => {
+                    const user = await fetchData(`${import.meta.env.VITE_AUTH_API}/users/${item.user_id}`);
+                    return { ...item, username: user.username };
+                })
+            );
+            setMediaArray(mediaWithUserData);
         } catch (error) {
-            console.error('Error fetching media:', error);
+            console.error('Error fetching media or user data:', error);
         }
     };
 
@@ -34,6 +50,7 @@ const Home = () => {
                     <th>Created</th>
                     <th>Size</th>
                     <th>Type</th>
+                    <th>Owner</th>
                     <th>Operations</th>
                 </tr>
                 </thead>

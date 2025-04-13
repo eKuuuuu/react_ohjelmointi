@@ -39,6 +39,7 @@ const SingleView = ({ item, setSelectedItem }) => {
                     )}
                     <h3>{item.title}</h3>
                     <p>{item.description || 'No description available.'}</p>
+                    <p>Owner: {item.username}</p> {/* Display the username */}
                     <p>Created At: {new Date(item.created_at).toLocaleString()}</p>
                     <p>File Size: {(item.filesize / 1024).toFixed(2)} KB</p>
                     <p>Media Type: {item.media_type}</p>
