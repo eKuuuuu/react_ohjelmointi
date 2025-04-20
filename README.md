@@ -1,1 +1,1 @@
-Open [link text here](https://users.metropolia.fi/~erikroi/web_development/week3/assingment_6/) to view it in the browser.
+Open [link text here](https://users.metropolia.fi/~erikroi/web_development/week3/assingment_7/) to view it in the browser.

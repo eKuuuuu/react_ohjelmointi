@@ -1,11 +1,15 @@
-import React from 'react';
+// Logout.jsx
+import { useEffect } from 'react';
+import { useUserContext } from '../hooks/contextHooks';
 
 const Logout = () => {
-    return (
-        <div>
-            <h2>You have been logged out</h2>
-        </div>
-    );
+    const { handleLogout } = useUserContext();
+
+    useEffect(() => {
+        handleLogout(); // Log out the user when the component is loaded
+    }, [handleLogout]);
+
+    return <p>Logging out...</p>;
 };
 
 export default Logout;
