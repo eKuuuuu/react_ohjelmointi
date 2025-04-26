@@ -1,28 +1,23 @@
-import {Link, Outlet} from 'react-router';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
     return (
-        <div>
-            <header>
-                <h1>My App</h1>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/profile">Profile</Link>
-                        </li>
-                        <li>
-                            <Link to="/upload">Upload</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-            <main>
+        <div className="flex flex-col items-center">
+            <nav className="w-full bg-gray-800 text-white p-4">
+                <ul className="flex justify-center space-x-4">
+                    <li className="hover:text-gray-300">
+                        <a href="/">Home</a>
+                    </li>
+                    <li className="hover:text-gray-300">
+                        <a href="/profile">Profile</a>
+                    </li>
+                    <li className="hover:text-gray-300">
+                        <a href="/upload">Upload</a>
+                    </li>
+                </ul>
+            </nav>
+            <main className="w-full flex-grow">
                 <Outlet />
             </main>
         </div>

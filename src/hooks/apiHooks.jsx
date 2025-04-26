@@ -139,4 +139,66 @@ const useFile = () => {
     return {postFile};
 };
 
-export {useMedia, useAuthentication, useUser, useFile};
+const deleteMedia = async (id, token) => {
+    const response = await fetch(`${import.meta.env.VITE_UPLOAD_SERVER}/media/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    if (!response.ok) {
+        throw new Error('Failed to delete media');
+    }
+    return response.json();
+};
+
+const modifyMedia = async (id, data, token) => {
+    const response = await fetch(`${import.meta.env.VITE_UPLOAD_SERVER}/media/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to modify media');
+    }
+    return response.json();
+};
+
+const useLike = () => {
+    const getLikesByMediaId = async (mediaId) => {
+        return await fetchData(`${import.meta.env.VITE_MEDIA_API}/media/${mediaId}/likes`);
+    };
+
+    const getLikesByUser = async (userId) => {
+        return await fetchData(`${import.meta.env.VITE_MEDIA_API}/users/${userId}/likes`);
+    };
+
+    const postLike = async (mediaId, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ media_id: mediaId }),
+        };
+        return await fetchData(`${import.meta.env.VITE_MEDIA_API}/likes`, fetchOptions);
+    };
+
+    const deleteLike = async (mediaId, token) => {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        return await fetchData(`${import.meta.env.VITE_MEDIA_API}/likes/${mediaId}`, fetchOptions);
+    };
+
+    return { getLikesByMediaId, getLikesByUser, postLike, deleteLike };
+};
+
+export {useMedia, useAuthentication, useUser, useFile, modifyMedia, deleteMedia, useLike};

@@ -1,9 +1,9 @@
 // ProtectedRoute.jsx
 import { Navigate } from 'react-router';
-import { useUserContext } from '../hooks/contextHooks';
+import { UserContext } from '../hooks/contextHooks';
 
 const ProtectedRoute = ({ children }) => {
-    const { user } = useUserContext();
+    const { user } = UserContext();
 
     if (!user) {
         return <Navigate to="/" />;

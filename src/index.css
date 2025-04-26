@@ -1,140 +1,102 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+    :root {
+        @apply font-sans text-base font-normal leading-6;
+        color-scheme: light dark;
+        color: rgba(255, 255, 255, 0.87);
+        background-color: #242424;
+    }
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+@layer base {
+    a {
+        @apply font-medium text-indigo-500 no-underline;
+    }
+    a:hover {
+        @apply text-indigo-400;
+    }
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@layer base {
+    body {
+        @apply m-0 flex items-center min-w-[320px] min-h-screen;
+    }
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+@layer base {
+  h1 {
+    @apply text-4xl leading-tight;
+  }
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+@layer base {
+  button {
+    @apply rounded-lg border border-transparent px-4 py-2 text-base font-medium bg-gray-900 cursor-pointer transition-colors;
+  }
+  button:hover {
+    @apply border-indigo-500;
+  }
+  button:focus,
+  button:focus-visible {
+    @apply outline outline-4 outline-blue-500;
+  }
 }
 
-thead {
-  display: none; /* Hide the table headers */
+@layer base {
+  table {
+    @apply w-full border-collapse;
+  }
+  thead {
+    @apply hidden;
+  }
+  tbody tr {
+    @apply flex flex-col mb-4 border border-gray-300 p-4 rounded-lg;
+  }
+  tbody td {
+    @apply block mb-2;
+  }
+  tbody td:last-child {
+    @apply mb-0;
+  }
+  tbody td button {
+    @apply inline-block mt-2 px-3 py-2 text-sm bg-gray-900 text-white border border-transparent rounded cursor-pointer transition-colors;
+  }
+  tbody td button:hover {
+    @apply bg-indigo-500 border-indigo-400;
+  }
+  tbody td button:focus {
+    @apply outline outline-2 outline-indigo-400;
+  }
 }
 
-tbody tr {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  border-radius: 8px;
+@layer base {
+  dialog {
+    @apply fixed top-[5%] h-[90%] bg-black z-[9999] text-white;
+  }
+  dialog img,
+  dialog video {
+    @apply h-[70%] object-contain;
+  }
 }
 
-tbody td {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-tbody td:last-child {
-  margin-bottom: 0;
-}
-
-tbody td button {
-  display: inline-block;
-  margin-top: 0.5rem; /* Add spacing above the button */
-  padding: 0.4em 0.8em;
-  font-size: 0.9em;
-  background-color: #1a1a1a;
-  color: #fff;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s;
-}
-
-tbody td button:hover {
-  background-color: #646cff;
-  border-color: #535bf2;
-}
-
-tbody td button:focus {
-  outline: 2px solid #535bf2;
-}
-
-dialog {
-  position: fixed;
-  top: 5%;
-  height: 90%;
-  background: rgba(0, 0, 0, 1);
-  z-index: 9999;
-  color: rgba(255, 255, 255, 0.87);
-}
-
-dialog img,
-video {
-  height: 70%;
-  object-fit: contain;
-}
-
-/* single view */
-img,
-video {
-  max-width: 100%;
+@layer base {
+  img,
+  video {
+    @apply max-w-full;
+  }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    @apply text-gray-900 bg-white;
   }
   a:hover {
-    color: #747bff;
+    @apply text-indigo-300;
   }
   button {
-    background-color: #f9f9f9;
+    @apply bg-gray-100;
   }
 }
-
-

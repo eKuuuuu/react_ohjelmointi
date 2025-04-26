@@ -1,37 +1,45 @@
-import {Link} from 'react-router';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { UserContext } from '../contexts/UserContext';
 
-const MediaRow = (props) => {
-    const {item, setSelectedItem} = props;
+const MediaRow = ({ item }) => {
+    const { user } = UserContext();
 
-    const handleClick = () => {
-        setSelectedItem(item);
-    };
+    const isOwner = user && (user.role === 'admin' || user.id === item.ownerId);
 
     return (
-        <tr>
-            <td>
-                <img src={item.thumbnail} alt={item.title} />
-            </td>
-            <td>{item.title}</td>
-            <td>{item.description}</td>
-            <td>{item.username}</td>
-            <td>{new Date(item.created_at).toLocaleString('fi-FI')}</td>
-            <td>{item.filesize}</td>
-            <td>{item.media_type}</td>
-            <td>
-                {/* <button onClick={handleClick}>View</button> */}
-                <Link to="/single" state={{item}}>
+        <div className="flex items-center justify-between p-4 border-b border-gray-300">
+            <span>{item.title}</span>
+            <div className="flex space-x-2">
+                <a
+                    href={`/media/${item.id}`}
+                    className="px-3 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
                     View
-                </Link>
-            </td>
-        </tr>
+                </a>
+                {isOwner && (
+                    <>
+                        <button
+                            className="px-3 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                            onClick={() => console.log('modify', item)}
+                        >
+                            Modify
+                        </button>
+                        <button
+                            className="px-3 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+                            onClick={() => console.log('delete', item)}
+                        >
+                            Delete
+                        </button>
+                    </>
+                )}
+            </div>
+        </div>
     );
 };
 
 MediaRow.propTypes = {
     item: PropTypes.object.isRequired,
-    setSelectedItem: PropTypes.func.isRequired,
 };
 
 export default MediaRow;
