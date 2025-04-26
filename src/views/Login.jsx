@@ -3,13 +3,17 @@ import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 
 const Login = () => {
-    const [showLogin, setShowLogin] = useState(true);
+    const [formToggle, setFormToggle] = useState(true);
+
+    const clickHandler = () => {
+        setFormToggle(!formToggle);
+    };
 
     return (
         <>
-            {showLogin ? <LoginForm /> : <RegisterForm />}
-            <button onClick={() => setShowLogin(!showLogin)}>
-                {showLogin ? 'Switch to Register' : 'Switch to Login'}
+            {formToggle ? <LoginForm /> : <RegisterForm />}
+            <button onClick={clickHandler}>
+                {formToggle ? 'or Register' : 'or Login'}
             </button>
         </>
     );

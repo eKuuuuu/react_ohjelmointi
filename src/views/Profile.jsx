@@ -2,29 +2,36 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../hooks/apiHooks.jsx';
 
 const Profile = () => {
-    const { getUserByToken } = useUser();
     const [user, setUser] = useState(null);
+
+    const {getUserByToken} = useUser();
 
     useEffect(() => {
         const fetchUser = async () => {
-            try {
-                const userData = await getUserByToken();
-                setUser(userData);
-            } catch (error) {
-                console.error('Error fetching user profile:', error.message);
+            const token = localStorage.getItem('token');
+            if (token) {
+                const userResult = await getUserByToken(token);
+                setUser(userResult.user);
             }
         };
+
         fetchUser();
-    }, []);
+    }, [getUserByToken]);
 
-    if (!user) return <p>Loading...</p>;
-
+    console.log('user', user);
     return (
-        <div>
-            <h1>Profile</h1>
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
-        </div>
+        <>
+            <h2>Profile</h2>
+            {user && (
+                <>
+                    <p>Username: {user.username}</p>
+                    <p>Email: {user.email}</p>
+                    <p>
+                        Register Date: {new Date(user.created_at).toLocaleString('fi-FI')}
+                    </p>
+                </>
+            )}
+        </>
     );
 };
 

@@ -4,7 +4,7 @@ import MediaRow from "../components/MediaRow.jsx";
 import { useMedia } from "../hooks/apiHooks.jsx";
 
 const Home = () => {
-    const mediaArray = useMedia();
+    const {mediaArray} = useMedia();
     const [selectedItem, setSelectedItem] = useState(null);
 
     return (
@@ -25,7 +25,11 @@ const Home = () => {
                 </thead>
                 <tbody>
                 {mediaArray.map((item) => (
-                    <MediaRow key={item.media_id} item={item} setSelectedItem={setSelectedItem} />
+                    <MediaRow
+                        key={item.media_id}
+                        item={item}
+                        setSelectedItem={setSelectedItem}
+                    />
                 ))}
                 </tbody>
             </table>
@@ -33,5 +37,4 @@ const Home = () => {
         </>
     );
 };
-
 export default Home;

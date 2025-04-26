@@ -1,14 +1,15 @@
-const fetchData = async (url) => {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+const fetchData = async (url, options = {}) => {
+    // console.log('fetching data from url: ', url);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    if (!response.ok) {
+        // console.log('json', json);
+        if (json.message) {
+            throw new Error(json.message);
         }
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
+        throw new Error(`Error ${response.status} occured`);
     }
+    return json;
 };
 
 export {fetchData};

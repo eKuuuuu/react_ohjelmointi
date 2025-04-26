@@ -1,8 +1,9 @@
-import { useUser } from '../hooks/apiHooks';
+import {useUser} from '../hooks/apiHooks';
 import useForm from '../hooks/formHooks';
 
+// RegisterForm.jsx
 const RegisterForm = () => {
-    const { postUser } = useUser();
+    const {postUser} = useUser();
 
     const initValues = {
         username: '',
@@ -11,16 +12,19 @@ const RegisterForm = () => {
     };
 
     const doRegister = async () => {
-        try {
-            const result = await postUser(inputs); // Call postUser with form data
-            console.log('Registration successful:', result);
-        } catch (error) {
-            console.error('Registration failed:', error.message); // Handle errors
-        }
+        console.log('Register funktiota kutsuttu');
+        console.log(inputs);
+        // TODO: add Register functionalities here
+        const userResult = await postUser(inputs);
+        console.log(userResult);
     };
 
-    const { inputs, handleInputChange, handleSubmit } = useForm(doRegister, initValues);
+    const {inputs, handleInputChange, handleSubmit} = useForm(
+        doRegister,
+        initValues,
+    );
 
+    console.log(inputs);
     return (
         <>
             <h1>Register</h1>
@@ -28,21 +32,21 @@ const RegisterForm = () => {
                 <div>
                     <label htmlFor="registeruser">Username</label>
                     <input
-                        name="username"
-                        type="text"
-                        id="registeruser"
                         onChange={handleInputChange}
                         autoComplete="username"
+                        type="text"
+                        id="registeruser"
+                        name="username"
                     />
                 </div>
                 <div>
                     <label htmlFor="registeremail">Email</label>
                     <input
-                        name="email"
-                        type="email"
-                        id="registeremail"
                         onChange={handleInputChange}
                         autoComplete="email"
+                        type="email"
+                        id="registeremail"
+                        name="email"
                     />
                 </div>
                 <div>
@@ -52,7 +56,7 @@ const RegisterForm = () => {
                         type="password"
                         id="registerpassword"
                         onChange={handleInputChange}
-                        autoComplete="new-password"
+                        autoComplete="current-password"
                     />
                 </div>
                 <button type="submit">Register</button>

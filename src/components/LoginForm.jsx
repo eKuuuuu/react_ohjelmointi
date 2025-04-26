@@ -1,44 +1,58 @@
+import {useAuthentication} from '../hooks/apiHooks';
+import useForm from '../hooks/formHooks';
+import {useNavigate} from 'react-router';
+
 // LoginForm.jsx
-import { useState } from 'react';
-import { useUserContext } from '../hooks/contextHooks';
-
 const LoginForm = () => {
-    const [inputs, setInputs] = useState({ username: '', password: '' });
-    const { handleLogin } = useUserContext();
+    const {postLogin} = useAuthentication();
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setInputs((prev) => ({ ...prev, [name]: value }));
+    const initValues = {
+        username: '',
+        password: '',
     };
 
     const doLogin = async () => {
-        try {
-            await handleLogin(inputs); // Call handleLogin with user inputs
-        } catch (e) {
-            alert(e.message); // Show error message if login fails
-        }
+        console.log('login funktiota kutsuttu');
+        console.log(inputs);
+        // TODO: add login functionalities here
+        await postLogin(inputs);
+        navigate('/');
     };
 
+    const {inputs, handleInputChange, handleSubmit} = useForm(
+        doLogin,
+        initValues,
+    );
+
+    console.log(inputs);
     return (
-        <form onSubmit={(e) => e.preventDefault()}>
-            <input
-                type="text"
-                name="username"
-                value={inputs.username}
-                onChange={handleChange}
-                placeholder="Username"
-            />
-            <input
-                type="password"
-                name="password"
-                value={inputs.password}
-                onChange={handleChange}
-                placeholder="Password"
-            />
-            <button type="button" onClick={doLogin}>
-                Login
-            </button>
-        </form>
+        <>
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="loginuser">Username</label>
+                    <input
+                        onChange={handleInputChange}
+                        autoComplete="username"
+                        type="text"
+                        id="loginuser"
+                        name="username"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="loginpassword">Password</label>
+                    <input
+                        name="password"
+                        type="password"
+                        id="loginpassword"
+                        onChange={handleInputChange}
+                        autoComplete="current-password"
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </>
     );
 };
 

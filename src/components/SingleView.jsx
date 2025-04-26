@@ -1,52 +1,37 @@
-import { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const SingleView = ({ item, setSelectedItem }) => {
-    const dialogRef = useRef(null);
+const SingleView = (props) => {
+    const {item, setSelectedItem} = props;
 
-    useEffect(() => {
-        if (item) {
-            openModal();
-        } else {
-            closeModal();
-        }
-    }, [item]);
-
-    const openModal = () => {
-        if (dialogRef.current) {
-            dialogRef.current.showModal();
-        }
-    };
-
-    const closeModal = () => {
-        if (dialogRef.current) {
-            dialogRef.current.close();
-        }
-    };
-
-    const handleClose = () => {
+    const handleClick = () => {
         setSelectedItem(null);
     };
-
     return (
-        <dialog ref={dialogRef}>
+        // TODO: Add JSX for displaying a mediafile here
+        // - use e.g. a <dialog> element for creating a modal
+        // - use item prop to render the media item details
+        // - use img tag for displaying images
+        // - use video tag for displaying videos
+        <>
             {item && (
-                <>
-                    <button onClick={handleClose}>&#10005; Close</button>
+                <dialog open>
+                    <button onClick={handleClick}>&#10005;</button>
                     {item.media_type.includes('video') ? (
                         <video src={item.filename} controls />
                     ) : (
                         <img src={item.filename} alt={item.title} />
                     )}
-                    <h3>{item.title}</h3>
-                    <p>{item.description || 'No description available.'}</p>
-                    <p>Owner: {item.username}</p> {/* Display the username */}
-                    <p>Created At: {new Date(item.created_at).toLocaleString()}</p>
-                    <p>File Size: {(item.filesize / 1024).toFixed(2)} KB</p>
-                    <p>Media Type: {item.media_type}</p>
-                </>
+                    <h3>Title: {item.title}</h3>
+                    <p>{item.description}</p>
+                </dialog>
             )}
-        </dialog>
+        </>
     );
+};
+
+SingleView.propTypes = {
+    item: PropTypes.object.isRequired,
+    setSelectedItem: PropTypes.func.isRequired,
 };
 
 export default SingleView;
